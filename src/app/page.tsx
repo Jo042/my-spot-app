@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-import SerachForm from "../components/filters/SerachForm";
+import SerachForm from "../components/filters/SearchForm";
 
 export default function HomePage() {
   const [area, setArea] = useState('');

@@ -5,7 +5,7 @@ import AreaSelect from "./AreaSelect";
 import GenreFilter from "./GenreFilter";
 import PlaceType from "./PlaceType";
 import SerachButton from "../ui/SearchButton";
-import SearchResults from "../results/SerachResults";
+import SearchResults from "../results/SearchResults";
 import { spots, Spot} from '../../lib/spots';
 
 export default function SerachForm() {
