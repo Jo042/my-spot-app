@@ -41,7 +41,7 @@ export default function SerachForm() {
       }}
       className="space-y-6 max-w-xl mx-auto p-6"
     >
-      <h1 className="text-2xl font-bold">デートスポット検索</h1>
+      <h1 className="text-2xl font-bold">スポット検索</h1>
       <AreaSelect area={area} onChange={setArea} />
       <GenreFilter
         genres={genres}
