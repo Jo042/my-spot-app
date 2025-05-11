@@ -4,6 +4,7 @@ export type Spot = {
     area: string;
     genres: string[];
     type: 'indoor' | 'outdoor';
+    imageUrl: string;
 };
 
 export const spots: Spot[] = [
@@ -13,6 +14,7 @@ export const spots: Spot[] = [
         area: 'shinjuku',
         genres: ['カフェ'],
         type: 'indoor',
+        imageUrl: '/sample.png',
     },
     {
       id: '2',
@@ -20,6 +22,7 @@ export const spots: Spot[] = [
       area: 'ikebukuro',
       genres: ['公園'],
       type: 'outdoor',
+      imageUrl: '/sample.png',
     },
     {
       id: '3',
@@ -27,6 +30,7 @@ export const spots: Spot[] = [
       area: 'yokohama',
       genres: ['水族館'],
       type: 'indoor',
+      imageUrl: '/sample.png',
     },
     {
       id: '4',
@@ -34,6 +38,7 @@ export const spots: Spot[] = [
       area: 'ikebukuro',
       genres: ['美術館'],
       type: 'indoor',
+      imageUrl: '/sample.png',
     },
 ];
 
