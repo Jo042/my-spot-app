@@ -12,26 +12,28 @@ export default function PlaceType({ value, onChange }: Props){
         <div>
         <label className="block font-semibold mb-1">タイプ</label>
         <div className="flex gap-4">
-          <label>
-            <input
-              type="radio"
-              name="placeType"
-              value="indoor"
-              checked={value === 'indoor'}
-              onChange={() => onChange('indoor')}
-            />
-            室内  
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="placeType"
-              value="outdoor"
-              checked={value === 'outdoor'}
-              onChange={() => onChange('outdoor')}
-            />
-            屋外  
-          </label>
+          <button
+            type="button"
+            className={`border rounded px-3 py-1 ${
+              value === 'indoor' ? 'bg-blue-500 text-white' : ''
+            }`}
+            onClick={() => 
+              onChange(value === 'indoor' ? '' : 'indoor')
+            }
+          >
+            室内
+          </button>
+          <button
+            type="button"
+            className={`border rounded px-3 py-1 ${
+              value === 'outdoor' ? 'bg-blue-500 text-white' : ''
+            }`}
+            onClick={() => 
+              onChange(value === 'outdoor' ? '' : 'outdoor')
+            }
+          >
+            屋外
+          </button>
         </div>
       </div>
     )
