@@ -21,23 +21,22 @@ export default function SearchForm() {
         setGenre((prev) =>
           prev.includes(g) ? prev.filter((x) => x !== g) : [...prev, g]
         );
-      };
+    };
 
     const handleSearch = async () => {
-        const res = await fetch('api/spot');
-        const allSpots: Spot[] = await res.json();
+        const params  = new URLSearchParams();
 
-        const filtered = allSpots.filter((spot) => {
-          const matchesArea = area === '' || spot.area === area;
-          const matchesGenre = genre.length === 0 || genre.some((g) => spot.genres.includes(g));
-          const matchesType = placeType === '' || spot.type === placeType;
-          return matchesArea && matchesGenre && matchesType;
-        });
+        if(area) params.append('area', area);
+        if(placeType) params.append('type', placeType);
+        genre.forEach((g) => params.append('genre', g));
+
+        const res = await fetch(`api/spot?${params.toString()}`);
+        const filtered: Spot[] = await res.json();
 
         setResults(filtered);
         setHasSearched(true);
-    }
-
+      };
+      
     return(
     <form 
       onSubmit={(e) => {
