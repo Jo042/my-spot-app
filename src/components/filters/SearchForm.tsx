@@ -7,15 +7,33 @@ import PlaceType from "./PlaceType";
 import SearchButton from "../ui/SearchButton";
 import SearchResults from "../results/SearchResults";
 import type { Spot } from '../../lib/spots';
+import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 export default function SearchForm() {
-    const [area, setArea] = useState('');
-    const [genre, setGenre] = useState<string[]>([]);
-    const [placeType, setPlaceType] = useState<'indoor' | 'outdoor' | ''>('');
+    const searchParams = useSearchParams();
+    const initialArea = searchParams?.get('area') ?? '';
+    const initialType = (searchParams?.get('type') ?? '') as 'indoor' | 'outdoor' | '';
+    const initialGenres = searchParams?.getAll('genre') ?? [];
+    const [area, setArea] = useState(initialArea);
+    const [genre, setGenre] = useState<string[]>(initialGenres);
+    const [placeType, setPlaceType] = useState<'indoor' | 'outdoor' | ''>(initialType);
     const [results, setResults] = useState<Spot[]>([]);
     const [hasSearched, setHasSearched] = useState(false);
+    const router = useRouter();
 
     const genres = ['カフェ', '公園', '美術館', '水族館'];
+
+    useEffect(() => {
+      if(
+        initialArea !== '' ||
+        initialType !== '' ||
+        (initialGenres && initialGenres.length > 0)
+      ){
+        handleSearch();
+      }
+    } , []);
 
     const toggleGenre = (g: string) => {
         setGenre((prev) =>
@@ -30,13 +48,15 @@ export default function SearchForm() {
         if(placeType) params.append('type', placeType);
         genre.forEach((g) => params.append('genre', g));
 
-        const res = await fetch(`api/spot?${params.toString()}`);
+        router.push(`?${params.toString()}`);
+
+        const res = await fetch(`/api/spot?${params.toString()}`);
         const filtered: Spot[] = await res.json();
 
         setResults(filtered);
         setHasSearched(true);
       };
-      
+
     return(
     <form 
       onSubmit={(e) => {
