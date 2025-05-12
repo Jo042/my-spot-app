@@ -6,7 +6,7 @@ import GenreFilter from "./GenreFilter";
 import PlaceType from "./PlaceType";
 import SearchButton from "../ui/SearchButton";
 import SearchResults from "../results/SearchResults";
-import { spots, Spot} from '../../lib/spots';
+import type { Spot } from '../../lib/spots';
 
 export default function SearchForm() {
     const [area, setArea] = useState('');
@@ -23,8 +23,11 @@ export default function SearchForm() {
         );
       };
 
-    const handleSearch = () => {
-        const filtered = spots.filter((spot) => {
+    const handleSearch = async () => {
+        const res = await fetch('api/spot');
+        const allSpots: Spot[] = await res.json();
+
+        const filtered = allSpots.filter((spot) => {
           const matchesArea = area === '' || spot.area === area;
           const matchesGenre = genre.length === 0 || genre.some((g) => spot.genres.includes(g));
           const matchesType = placeType === '' || spot.type === placeType;
