@@ -3,6 +3,7 @@
 import { resourceLimits } from 'worker_threads';
 import { Spot } from '../../lib/spots';
 import Image from 'next/image';
+import Link from 'next/link';
 
 type Props = {
     results: Spot[];
@@ -28,6 +29,9 @@ export default function SerachResluts({ results }: Props) {
                         <p className="text-sm text-gray-700">
                             タイプ: {spot.type === 'indoor' ? '室内' : '屋外'}
                         </p>
+                        <Link href={`/spot/${spot.id}`} className='text-sm text-blue-600 underline'>
+                            詳細を見る
+                        </Link>
                     </div>     
                 </li>
             ))}
