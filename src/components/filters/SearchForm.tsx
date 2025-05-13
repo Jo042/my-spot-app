@@ -6,7 +6,7 @@ import GenreFilter from "./GenreFilter";
 import PlaceType from "./PlaceType";
 import SearchButton from "../ui/SearchButton";
 import SearchResults from "../results/SearchResults";
-import type { Spot } from '../../lib/spots';
+import type { Spot } from '../../pages/api/spot';
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
@@ -52,6 +52,8 @@ export default function SearchForm() {
 
         const res = await fetch(`/api/spot?${params.toString()}`);
         const filtered: Spot[] = await res.json();
+        console.log("APIレスポンス:", filtered);
+        
 
         setResults(filtered);
         setHasSearched(true);

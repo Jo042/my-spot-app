@@ -1,7 +1,7 @@
 'use client'
 
 import { resourceLimits } from 'worker_threads';
-import { Spot } from '../../lib/spots';
+import { Spot } from '../../pages/api/spot';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -15,7 +15,7 @@ export default function SerachResluts({ results }: Props) {
             {results.map((spot) => (
                 <li key={spot.id} className='bg-white border rounded shadow over-flow-hidden'>
                     <Image
-                      src={spot.imageUrl}
+                      src={spot.image_url}
                       alt={spot.name}
                       width={500}
                       height={300}
@@ -24,7 +24,7 @@ export default function SerachResluts({ results }: Props) {
                     <div className='p-4 space-y-1'>
                         <h2 className='font-bold text-lg text-black'>{spot.name}</h2>
                         <p className='test-sm text-gray-600'>
-                            ジャンル: {spot.genres.join(', ')}
+                            ジャンル: {spot.genre.join(', ')}
                         </p>
                         <p className="text-sm text-gray-700">
                             タイプ: {spot.type === 'indoor' ? '室内' : '屋外'}
