@@ -2,7 +2,9 @@ export const dynamic = "force-dynamic";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/src/lib/supabase";
-type Props　= {
+import BackToLink from "@/src/components/detail/BackToLink";
+
+type Props = {
     params: {id: string};
 };
 
@@ -17,9 +19,7 @@ export default async function SpotDetailPage({ params }: Props) {
 
   return (
     <main className="max-w-xl mx-auto p-6 space-y-4">
-      <Link href="/" className="text-blue-600 underline text-sm">
-        ← 一覧に戻る
-      </Link>
+      <BackToLink />
 
       <h1 className="text-2xl font-bold">{spot.name}</h1>
 

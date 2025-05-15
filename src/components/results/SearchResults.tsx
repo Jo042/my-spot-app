@@ -4,12 +4,14 @@ import { resourceLimits } from 'worker_threads';
 import { Spot } from '../../pages/api/spot';
 import Image from 'next/image';
 import Link from 'next/link';
-
+import { useSearchParams } from 'next/navigation';
 type Props = {
     results: Spot[];
 };
 
 export default function SerachResluts({ results }: Props) {
+    const searchParams = useSearchParams(); 
+    if (!searchParams) return;
     return (
         <ul className='mt-6 grid gap-6 md:grid-cols-2'>
             {results.map((spot) => (
@@ -29,9 +31,13 @@ export default function SerachResluts({ results }: Props) {
                         <p className="text-sm text-gray-700">
                             タイプ: {spot.type === 'indoor' ? '室内' : '屋外'}
                         </p>
-                        <Link href={`/spot/${spot.id}`} className='text-sm text-blue-600 underline'>
+                        <Link 
+                            className='text-blue-700'
+                            href={`/spot/${spot.id}?${searchParams.toString()}`}
+                        >
                             詳細を見る
                         </Link>
+
                     </div>     
                 </li>
             ))}
