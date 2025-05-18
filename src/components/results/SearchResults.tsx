@@ -32,7 +32,7 @@ export default function SerachResluts({ results }: Props) {
                             タイプ: {spot.type === 'indoor' ? '室内' : '屋外'}
                         </p>
                         <Link 
-                            className='text-blue-700'
+                            className='inline-block mt-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm'
                             href={`/spot/${spot.id}?${searchParams.toString()}`}
                         >
                             詳細を見る
