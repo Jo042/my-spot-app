@@ -4,26 +4,22 @@ type Props = {
     genres: string[];
     selectedGenres: string[];
     onToggle: (genre: string) => void;
+    onOpenModal: () => void;
 };
 
-export default function GenreFilter({ genres, selectedGenres, onToggle }: Props){
+export default function GenreFilter({ genres, onOpenModal, selectedGenres, onToggle }: Props){
     return (
-        <div>
-        <label className="block font-semibold mb-1">ジャンル</label>
-        <div className="flex flex-wrap gap-2">
-          {genres.map((g) => (
-            <button
-              key={g}
-              type="button"
-              className={`border rounded px-3 py-1 ${
-                selectedGenres.includes(g) ? 'bg-blue-500 text-white' : ''
-              }`}
-              onClick={() =>onToggle(g)}
-            >
-              {g}
-            </button> 
-            ))}
+        <div className="flex justify-between gap-2">
+        <button
+          type="button"
+          onClick={onOpenModal}
+          className="flex-1 border border-gray-300 rounded-md py-3 px-4 text-left flex items-center justify-between"
+        >
+          <span className="text-gray-400">ジャンル</span>
+          <span className="text-sm text-gray-800">
+            {genres.length > 0 ? genres.join(', ') : '未選択'}
+          </span>
+        </button>
         </div>
-      </div>
     );
 } 

@@ -11,7 +11,7 @@ export default function SerachButton({ label = 'この条件で探す', onClick 
     return(
         <button
         type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl py-3 text-center"
       >
         {label}
       </button>
