@@ -10,6 +10,7 @@ import SearchResults from "../results/SearchResults";
 import type { Spot } from '../../pages/api/spot';
 import DetailedButton from "../ui/button/DetailedButton";
 import ResetButton from "../ui/button/ResetButton";
+import GenreModal from "../modal/GenreModal";
 
 export default function SearchForm() {
   const searchParams = useSearchParams();
@@ -25,6 +26,7 @@ export default function SearchForm() {
   const [showGenreModal, setShowGenreModal] = useState(false);
   const [showTypeModal, setShowTypeModal] = useState(false);
   
+  const [selected, setSelected] = useState<string[]>(genre);
 
   const genres = ['カフェ', '公園', '美術館', '水族館', '夜景'];
 
@@ -106,7 +108,10 @@ export default function SearchForm() {
           genres={genres} 
           selectedGenres={genre} 
           onToggle={toggleGenre} 
-          onOpenModal={() => setShowGenreModal(true)}
+          onOpenModal={() => {
+            setShowGenreModal(true)
+            setSelected(genre);
+          }}
         />
         <PlaceType 
           value={placeType} 
@@ -121,6 +126,7 @@ export default function SearchForm() {
             setPlaceType ={() =>setPlaceType('')}
             setResults={() =>setResults([])}
             setHasSearched={() => setHasSearched(false)}
+            setSelectedGenre={() => setSelected([])}
           />
         </div>
         <SearchButton 
@@ -138,6 +144,16 @@ export default function SearchForm() {
         </>
       )}
     </form>
+    {showGenreModal && (
+    <GenreModal
+      initial={genre}
+      selected={selected}
+      setSelectedGenre={setSelected}
+      options={genres}
+      onClose={() => setShowGenreModal(false)}
+      onSave={(newSelected) => setGenre(newSelected)}
+    />
+)}
     </>
   );
 }

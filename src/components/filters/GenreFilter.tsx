@@ -16,9 +16,10 @@ export default function GenreFilter({ genres, onOpenModal, selectedGenres, onTog
           className="flex-1 border border-gray-300 rounded-md py-3 px-4 text-left flex items-center justify-between"
         >
           <span className="text-gray-400">ジャンル</span>
-          <span className="text-sm text-gray-800">
-            {genres.length > 0 ? genres.join(', ') : '未選択'}
+          <span className="text-sm text-gray-800" >
+            {selectedGenres.length > 0 ? selectedGenres.join(', ') : '未選択'}
           </span>
+
         </button>
         </div>
     );

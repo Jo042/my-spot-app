@@ -6,18 +6,20 @@ type Props ={
     setPlaceType: () => void;
     setResults: () => void;
     setHasSearched: () => void;
+    setSelectedGenre: () => void;
 }
-export default function ({setArea, setGenre, setPlaceType, setResults, setHasSearched} : Props){
+export default function ({setArea, setSelectedGenre, setGenre, setPlaceType, setResults, setHasSearched} : Props){
     const router = useRouter();
     return(
         <button
                 type="button"
                 onClick={() => {
-                  setArea;
-                  setGenre;
-                  setPlaceType;
-                  setResults;
-                  setHasSearched;
+                  setArea();
+                  setGenre();
+                  setPlaceType();
+                  setResults();
+                  setHasSearched();
+                  setSelectedGenre();
                   router.push('/');
                 }}
                 className="ml-4 text-sm text-gray-500 underline hover:text-gray-700"
