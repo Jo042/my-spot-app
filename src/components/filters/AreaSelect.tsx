@@ -5,11 +5,13 @@ import { supabase } from '@/src/lib/supabase';
 
 export default function AreaSelect({
   area,
+  selectedAreas,
   onChange,
   onOpenModal
 }: {
-  area: string;
-  onChange: (val: string) => void;
+  area: string[];
+  selectedAreas: string[];
+  onChange: (val: string[]) => void;
   onOpenModal: () => void;
 }) {
   const [areas, setAreas] = useState<string[]>([]);
@@ -39,7 +41,9 @@ export default function AreaSelect({
       className='w-full border border-gray-300 rounded-md py-3 px-4 text-left flex items-center justify-between'
     >
       <span className='text-gray-400'>エリア</span>
-      <span className='text-sm text-gray-800'>{area || '未選択'}</span>
+      <span className='text-sm text-gray-800'>
+        {selectedAreas.length > 0 ? selectedAreas.join(', ') : '未選択'}
+      </span>
     </button>
   );
 }

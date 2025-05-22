@@ -21,9 +21,15 @@ export default async function handler(
 
     let query = supabase.from("spots").select("*");
 
-    if(area && typeof area === "string"){
-        query = query.ilike("area", `%${area}%`);
+    if (area) {
+     if (Array.isArray(area)) {
+        query = query.in("area", area); // ✅ 複数対応
+     } 
+     else {
+        query = query.eq("area", area); // ✅ 単一の場合
+     }
     }
+
     if (type && typeof type === "string") {
         query = query.eq("type", type);
     }

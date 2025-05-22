@@ -4,38 +4,38 @@ import { useState } from 'react';
 
 type Props = {
     initial: string[];
-    selectedGenre: string[];
-    setSelectedGenre: React.Dispatch<React.SetStateAction<string[]>>;
+    selectedArea: string[];
+    setSelectedArea: React.Dispatch<React.SetStateAction<string[]>>;
     options: string[];
     onClose: () => void;
     onSave: (selected: string[]) => void;
 };
 
-export default function GenreModal({selectedGenre, setSelectedGenre, options, onClose, onSave}: Props){
+export default function AreaModal({selectedArea, setSelectedArea, options, onClose, onSave}: Props){
     
 
-    const toggle = (genre: string) => {
-        setSelectedGenre((prev) => 
-            prev.includes(genre)
-                ? prev.filter((g) => g !== genre)
-                : [...prev, genre]
+    const toggle = (area: string) => {
+        setSelectedArea((prev) => 
+            prev.includes(area)
+                ? prev.filter((a) => a !== area)
+                : [...prev, area]
         );
     };
 
     return (
         <div className="fixed inset-0 bg-opacity-40 z-50 flex items-end sm:items-center justify-center">
           <div className="bg-white w-full sm:max-w-md rounded-t-2xl sm:rounded-xl p-6 shadow-lg">
-            <h2 className="text-lg font-semibold mb-4">ジャンルを選択</h2>
+            <h2 className="text-lg font-semibold mb-4">エリアを選択</h2>
             <div className="space-y-2 max-h-60 overflow-y-auto">
-              {options.map((genre) => (
-                <label key={genre} className="block cursor-pointer">
+              {options.map((area) => (
+                <label key={area} className="block cursor-pointer">
                   <input
                     type="checkbox"
                     className="mr-2"
-                    checked={selectedGenre.includes(genre)}
-                    onChange={() => toggle(genre)}
+                    checked={selectedArea.includes(area)}
+                    onChange={() => toggle(area)}
                   />
-                  {genre}
+                  {area}
                 </label>
               ))}
             </div>
@@ -50,7 +50,7 @@ export default function GenreModal({selectedGenre, setSelectedGenre, options, on
               <button
                 className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm"
                 onClick={() => {
-                  onSave(selectedGenre);
+                  onSave(selectedArea);
                   onClose();
                 }}
               >

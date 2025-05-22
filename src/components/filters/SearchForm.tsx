@@ -11,12 +11,13 @@ import type { Spot } from '../../pages/api/spot';
 import DetailedButton from "../ui/button/DetailedButton";
 import ResetButton from "../ui/button/ResetButton";
 import GenreModal from "../modal/GenreModal";
+import AreaModal from "../modal/AreaModal";
 
 export default function SearchForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const [area, setArea] = useState('');
+  const [area, setArea] = useState<string[]>([]);
   const [genre, setGenre] = useState<string[]>([]);
   const [placeType, setPlaceType] = useState<'indoor' | 'outdoor' | ''>('');
   const [results, setResults] = useState<Spot[]>([]);
@@ -26,15 +27,23 @@ export default function SearchForm() {
   const [showGenreModal, setShowGenreModal] = useState(false);
   const [showTypeModal, setShowTypeModal] = useState(false);
   
-  const [selected, setSelected] = useState<string[]>(genre);
+  const [selectedGenres, setSelectedGenres] = useState<string[]>(genre);
+  const [selectedArea, setSelectedArea] = useState<string[]>([]);
+  const [selectedType, setSelectedType] = useState(false);
 
-  const genres = ['カフェ', '公園', '美術館', '水族館', '夜景'];
-
+  const genreOptions = ['カフェ', '公園', '美術館', '水族館', '夜景'];
+  const areaOptions = [
+  '新宿', '渋谷', '池袋', '東京', '上野', '品川', '秋葉原', '銀座', '浅草', '六本木',
+  '恵比寿', '中目黒', '代官山', '原宿', '表参道', '神保町', '神田', '飯田橋', '市ヶ谷', '四ツ谷',
+  '高田馬場', '目黒', '五反田', '有楽町', '御茶ノ水', '水道橋', '大手町', '日本橋', '門前仲町',
+  '築地', '月島', '豊洲', 'お台場', '吉祥寺', '三鷹', '立川', '国分寺', '府中', '町田',
+  '調布', '中野', '荻窪', '阿佐ヶ谷', '高円寺'
+];
   // URLのクエリから状態と検索を復元
   useEffect(() => {
     if (!searchParams) return;
 
-    const areaParam = searchParams.get('area') ?? '';
+    const areaParam = searchParams.getAll('area') ?? [];
     const typeParam = (searchParams.get('type') ?? '') as 'indoor' | 'outdoor' | '';
     const genreParams = searchParams.getAll('genre') ?? [];
 
@@ -46,7 +55,7 @@ export default function SearchForm() {
     // クエリから直接検索（状態には頼らない）
     if (areaParam || typeParam || genreParams.length > 0) {
       const params = new URLSearchParams();
-      if (areaParam) params.append('area', areaParam);
+      areaParam.forEach((a) => params.append('area', a));
       if (typeParam) params.append('type', typeParam);
       genreParams.forEach((g) => params.append('genre', g));
 
@@ -62,7 +71,7 @@ export default function SearchForm() {
   // 通常の検索（状態からURLにクエリを反映）
   const handleSearch = async () => {
     const params = new URLSearchParams();
-    if (area) params.append('area', area);
+    area.forEach((a) => params.append('area', a));
     if (placeType) params.append('type', placeType);
     genre.forEach((g) => params.append('genre', g));
 
@@ -99,18 +108,21 @@ export default function SearchForm() {
     >
       <h1 className="text-2xl font-bold">スポット検索</h1>
       <div className="bg-white rounded-xl shadow p-4 space-y-4">
-        <AreaSelect 
+        <AreaSelect
+          selectedAreas={selectedArea} 
           area={area} 
           onChange={setArea}
-          onOpenModal={() => setShowAreaModal(true)}
+          onOpenModal={() => {
+            setSelectedArea(area);
+            setShowAreaModal(true)}}
         />
         <GenreFilter 
-          genres={genres} 
+          genres={genreOptions} 
           selectedGenres={genre} 
           onToggle={toggleGenre} 
           onOpenModal={() => {
             setShowGenreModal(true)
-            setSelected(genre);
+            setSelectedGenres(genre);
           }}
         />
         <PlaceType 
@@ -121,12 +133,13 @@ export default function SearchForm() {
         <div className="flex py-3 justify-between items-center gap-2">
           <DetailedButton />
           <ResetButton 
-            setArea = {() => setArea('')}
+            setArea = {() => setArea([])}
             setGenre={() => setGenre([])}
             setPlaceType ={() =>setPlaceType('')}
             setResults={() =>setResults([])}
             setHasSearched={() => setHasSearched(false)}
-            setSelectedGenre={() => setSelected([])}
+            setSelectedGenres={() => setSelectedGenres([])}
+            setSelectedArea={() => setSelectedArea([])}
           />
         </div>
         <SearchButton 
@@ -144,16 +157,27 @@ export default function SearchForm() {
         </>
       )}
     </form>
+    {showAreaModal && (
+      <AreaModal
+        initial={area}
+        selectedArea={selectedArea}
+        setSelectedArea={setSelectedArea}
+        options={areaOptions}
+        onClose={() => setShowAreaModal(false)}
+        onSave={(newSelected) => setArea(newSelected)}
+      />
+    )}
     {showGenreModal && (
-    <GenreModal
-      initial={genre}
-      selected={selected}
-      setSelectedGenre={setSelected}
-      options={genres}
-      onClose={() => setShowGenreModal(false)}
-      onSave={(newSelected) => setGenre(newSelected)}
+      <GenreModal
+        initial={genre}
+        selectedGenre={selectedGenres}
+        setSelectedGenre={setSelectedGenres}
+        options={genreOptions}
+        onClose={() => setShowGenreModal(false)}
+        onSave={(newSelected) => setGenre(newSelected)}
     />
-)}
+    )}
+
     </>
   );
 }
