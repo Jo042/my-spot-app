@@ -1,26 +1,46 @@
-'use client'
+'use client';
 
-type PlaceType = 'indoor' | 'outdoor' | '';
+type PlaceType = 'indoor' | 'outdoor';
 
 type Props = {
-    value: PlaceType;
-    onChange: (value: PlaceType) => void;
-    onOpenModal: () => void;
+  placeType: string[]; // 複数選択対応
+  onChange: (value: string[]) => void;
 };
 
-export default function PlaceType({ value, onChange, onOpenModal }: Props){
-    return(
-        <div className="flex justify-between gap-2">
+export default function PlaceType({ placeType, onChange }: Props) {
+  const toggleType = (type: string) => {
+    if (placeType.includes(type)) {
+      onChange(placeType.filter((t) => t !== type)); // 解除
+    } else {
+      onChange([...placeType, type]); // 追加
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-1">
+      <label className="text-sm font-semibold text-gray-700">タイプ</label>
+      <div className="flex gap-2">
         <button
           type="button"
-          onClick={onOpenModal}
-          className="flex-1 border border-gray-300 rounded-md py-3 px-4 text-left flex items-center justify-between"
+          onClick={() => toggleType('indoor')}
+          className={`flex-1 px-4 py-2 rounded-full text-sm border 
+            ${placeType.includes('indoor') 
+              ? 'bg-blue-500 text-white border-blue-500' 
+              : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'}`}
         >
-          <span className="text-gray-400">タイプ</span>
-          <span className="text-sm text-gray-800">
-            {value === 'indoor' ? '室内' : value === 'outdoor' ? '屋外' : '未選択'}
-          </span>
+          室内
         </button>
-        </div>
-    )
+        <button
+          type="button"
+          onClick={() => toggleType('outdoor')}
+          className={`flex-1 px-4 py-2 rounded-full text-sm border 
+            ${placeType.includes('outdoor') 
+              ? 'bg-blue-500 text-white border-blue-500' 
+              : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'}`}
+        >
+          屋外
+        </button>
+      </div>
+    </div>
+  );
 }

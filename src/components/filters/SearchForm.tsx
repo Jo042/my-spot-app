@@ -19,17 +19,17 @@ export default function SearchForm() {
 
   const [area, setArea] = useState<string[]>([]);
   const [genre, setGenre] = useState<string[]>([]);
-  const [placeType, setPlaceType] = useState<'indoor' | 'outdoor' | ''>('');
+  const [placeType, setPlaceType] = useState<string[]>([]);
   const [results, setResults] = useState<Spot[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
 
   const [showAreaModal, setShowAreaModal] = useState(false);
   const [showGenreModal, setShowGenreModal] = useState(false);
-  const [showTypeModal, setShowTypeModal] = useState(false);
+  //const [showTypeModal, setShowTypeModal] = useState(false);
   
   const [selectedGenres, setSelectedGenres] = useState<string[]>(genre);
   const [selectedArea, setSelectedArea] = useState<string[]>([]);
-  const [selectedType, setSelectedType] = useState(false);
+  //const [selectedType, setSelectedType] = useState(false);
 
   const genreOptions = ['カフェ', '公園', '美術館', '水族館', '夜景'];
   const areaOptions = [
@@ -38,13 +38,13 @@ export default function SearchForm() {
   '高田馬場', '目黒', '五反田', '有楽町', '御茶ノ水', '水道橋', '大手町', '日本橋', '門前仲町',
   '築地', '月島', '豊洲', 'お台場', '吉祥寺', '三鷹', '立川', '国分寺', '府中', '町田',
   '調布', '中野', '荻窪', '阿佐ヶ谷', '高円寺'
-];
+  ];
   // URLのクエリから状態と検索を復元
   useEffect(() => {
     if (!searchParams) return;
 
     const areaParam = searchParams.getAll('area') ?? [];
-    const typeParam = (searchParams.get('type') ?? '') as 'indoor' | 'outdoor' | '';
+    const typeParam = searchParams.getAll('type') ?? [];
     const genreParams = searchParams.getAll('genre') ?? [];
 
     // 状態だけ更新
@@ -56,7 +56,7 @@ export default function SearchForm() {
     if (areaParam || typeParam || genreParams.length > 0) {
       const params = new URLSearchParams();
       areaParam.forEach((a) => params.append('area', a));
-      if (typeParam) params.append('type', typeParam);
+      typeParam.forEach((t) => params.append('type', t));
       genreParams.forEach((g) => params.append('genre', g));
 
       fetch(`/api/spot?${params.toString()}`)
@@ -72,7 +72,7 @@ export default function SearchForm() {
   const handleSearch = async () => {
     const params = new URLSearchParams();
     area.forEach((a) => params.append('area', a));
-    if (placeType) params.append('type', placeType);
+    placeType.forEach((t) => params.append('type' , t));
     genre.forEach((g) => params.append('genre', g));
 
     router.push(`?${params.toString()}`);
@@ -126,16 +126,15 @@ export default function SearchForm() {
           }}
         />
         <PlaceType 
-          value={placeType} 
-          onChange={setPlaceType} 
-          onOpenModal={() => setShowGenreModal} 
+          placeType={placeType} 
+          onChange={setPlaceType}
         />
         <div className="flex py-3 justify-between items-center gap-2">
           <DetailedButton />
           <ResetButton 
             setArea = {() => setArea([])}
             setGenre={() => setGenre([])}
-            setPlaceType ={() =>setPlaceType('')}
+            setPlaceType ={() =>setPlaceType([])}
             setResults={() =>setResults([])}
             setHasSearched={() => setHasSearched(false)}
             setSelectedGenres={() => setSelectedGenres([])}
