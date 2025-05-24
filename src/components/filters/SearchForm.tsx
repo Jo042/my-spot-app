@@ -8,10 +8,14 @@ import PlaceType from "./PlaceType";
 import SearchButton from "../ui/button/SearchButton";
 import SearchResults from "../results/SearchResults";
 import type { Spot } from '../../pages/api/spot';
-import DetailedButton from "../ui/button/DetailedButton";
+import DetailButton from "../ui/button/DetailButton";
 import ResetButton from "../ui/button/ResetButton";
 import GenreModal from "../modal/GenreModal";
 import AreaModal from "../modal/AreaModal";
+import DetailModal from "../modal/DetailModal";
+import { areaCategories } from "@/src/data/areaOptions";
+import { genreCategories } from "@/src/data/genreOptions";
+import { detailCategories } from "@/src/data/detailOptions";
 
 export default function SearchForm() {
   const searchParams = useSearchParams();
@@ -20,25 +24,26 @@ export default function SearchForm() {
   const [area, setArea] = useState<string[]>([]);
   const [genre, setGenre] = useState<string[]>([]);
   const [placeType, setPlaceType] = useState<string[]>([]);
+  const [detail, setDetail] = useState<string[]>([]);
+
   const [results, setResults] = useState<Spot[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
 
   const [showAreaModal, setShowAreaModal] = useState(false);
   const [showGenreModal, setShowGenreModal] = useState(false);
+  const [showDetailModal, setShowDetailModal] = useState(false);
   //const [showTypeModal, setShowTypeModal] = useState(false);
   
   const [selectedGenres, setSelectedGenres] = useState<string[]>(genre);
   const [selectedArea, setSelectedArea] = useState<string[]>([]);
+  const [selectedDetail, setSelectedDetail] = useState<string[]>([]);
+
   //const [selectedType, setSelectedType] = useState(false);
 
-  const genreOptions = ['カフェ', '公園', '美術館', '水族館', '夜景'];
-  const areaOptions = [
-  '新宿', '渋谷', '池袋', '東京', '上野', '品川', '秋葉原', '銀座', '浅草', '六本木',
-  '恵比寿', '中目黒', '代官山', '原宿', '表参道', '神保町', '神田', '飯田橋', '市ヶ谷', '四ツ谷',
-  '高田馬場', '目黒', '五反田', '有楽町', '御茶ノ水', '水道橋', '大手町', '日本橋', '門前仲町',
-  '築地', '月島', '豊洲', 'お台場', '吉祥寺', '三鷹', '立川', '国分寺', '府中', '町田',
-  '調布', '中野', '荻窪', '阿佐ヶ谷', '高円寺'
-  ];
+  //const genreOptions = ['カフェ', '公園', '美術館', '水族館', '夜景'];
+  
+
+  //const detailOptions = ['こだわり'];
   // URLのクエリから状態と検索を復元
   useEffect(() => {
     if (!searchParams) return;
@@ -46,18 +51,20 @@ export default function SearchForm() {
     const areaParam = searchParams.getAll('area') ?? [];
     const typeParam = searchParams.getAll('type') ?? [];
     const genreParams = searchParams.getAll('genre') ?? [];
-
+    const detailParamas = searchParams.getAll('detail') ?? [];
     // 状態だけ更新
     setArea(areaParam);
     setPlaceType(typeParam);
     setGenre(genreParams);
+    setDetail(detailParamas);
 
     // クエリから直接検索（状態には頼らない）
-    if (areaParam || typeParam || genreParams.length > 0) {
+    if (areaParam || typeParam || detailParamas|| genreParams.length > 0) {
       const params = new URLSearchParams();
       areaParam.forEach((a) => params.append('area', a));
       typeParam.forEach((t) => params.append('type', t));
       genreParams.forEach((g) => params.append('genre', g));
+      detailParamas.forEach((d) => params.append('detail', d));
 
       fetch(`/api/spot?${params.toString()}`)
         .then((res) => res.json())
@@ -74,7 +81,7 @@ export default function SearchForm() {
     area.forEach((a) => params.append('area', a));
     placeType.forEach((t) => params.append('type' , t));
     genre.forEach((g) => params.append('genre', g));
-
+    detail.forEach((d) => params.append('detail', d));
     router.push(`?${params.toString()}`);
 
     const res = await fetch(`/api/spot?${params.toString()}`);
@@ -117,7 +124,7 @@ export default function SearchForm() {
             setShowAreaModal(true)}}
         />
         <GenreFilter 
-          genres={genreOptions} 
+          genres={genreCategories} 
           selectedGenres={genre} 
           onToggle={toggleGenre} 
           onOpenModal={() => {
@@ -130,7 +137,12 @@ export default function SearchForm() {
           onChange={setPlaceType}
         />
         <div className="flex py-3 justify-between items-center gap-2">
-          <DetailedButton />
+          <DetailButton 
+            detail = {detail}
+            selectedDetail={selectedDetail}
+            onOpenModal={() => setShowDetailModal(true)}
+            //onToggle={}
+          />
           <ResetButton 
             setArea = {() => setArea([])}
             setGenre={() => setGenre([])}
@@ -161,7 +173,7 @@ export default function SearchForm() {
         initial={area}
         selectedArea={selectedArea}
         setSelectedArea={setSelectedArea}
-        options={areaOptions}
+        options={areaCategories}
         onClose={() => setShowAreaModal(false)}
         onSave={(newSelected) => setArea(newSelected)}
       />
@@ -171,12 +183,22 @@ export default function SearchForm() {
         initial={genre}
         selectedGenre={selectedGenres}
         setSelectedGenre={setSelectedGenres}
-        options={genreOptions}
+        options={genreCategories}
         onClose={() => setShowGenreModal(false)}
         onSave={(newSelected) => setGenre(newSelected)}
     />
     )}
 
+    {showDetailModal && (
+      <DetailModal
+        initial={detail}
+        selectedDetail={selectedDetail}
+        setSelectedDetail={setSelectedDetail}
+        options={detailCategories}
+        onClose={() => setShowDetailModal(false)}
+        onSave={(newSelected) => setDetail(newSelected)}
+      />
+    )}
     </>
   );
 }

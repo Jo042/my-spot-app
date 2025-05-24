@@ -7,7 +7,7 @@ export default function AreaSelect({
   area,
   selectedAreas,
   onChange,
-  onOpenModal
+  onOpenModal,
 }: {
   area: string[];
   selectedAreas: string[];
@@ -34,15 +34,23 @@ export default function AreaSelect({
     fetchAreas();
   }, []);
 
+  const displayAreas =
+    selectedAreas.length > 3
+      ? `${selectedAreas.slice(0, 3).join(', ')} 他${selectedAreas.length - 3}件`
+      : selectedAreas.join(', ') || '未選択';
+
   return (
-    <button 
+    <button
       type='button'
       onClick={onOpenModal}
       className='w-full border border-gray-300 rounded-md py-3 px-4 text-left flex items-center justify-between'
     >
       <span className='text-gray-400'>エリア</span>
-      <span className='text-sm text-gray-800'>
-        {selectedAreas.length > 0 ? selectedAreas.join(', ') : '未選択'}
+      <span
+        className='text-sm text-gray-800 truncate whitespace-nowrap overflow-hidden max-w-[60%]'
+        title={selectedAreas.join(', ')} // hover時にすべて表示
+      >
+        {displayAreas}
       </span>
     </button>
   );

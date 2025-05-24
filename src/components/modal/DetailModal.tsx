@@ -9,33 +9,33 @@ type Category = {
 
 type Props = {
   initial: string[];
-  selectedGenre: string[];
-  setSelectedGenre: React.Dispatch<React.SetStateAction<string[]>>;
+  selectedDetail: string[];
+  setSelectedDetail: React.Dispatch<React.SetStateAction<string[]>>;
   options: Category[];
   onClose: () => void;
   onSave: (selected: string[]) => void;
 };
 
-export default function GenreModal({
+export default function DetailModal({
   initial,
-  selectedGenre,
-  setSelectedGenre,
+  selectedDetail,
+  setSelectedDetail,
   options,
   onClose,
   onSave,
 }: Props) {
-  const [tempSelected, setTempSelected] = useState<string[]>(selectedGenre);
+  const [tempSelected, setTempSelected] = useState<string[]>(selectedDetail);
 
-  const toggle = (genre: string) => {
+  const toggle = (item: string) => {
     setTempSelected((prev) =>
-      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre]
+      prev.includes(item) ? prev.filter((d) => d !== item) : [...prev, item]
     );
   };
 
   const handleSelectAll = (items: string[]) => {
     const allSelected = items.every((item) => tempSelected.includes(item));
     if (allSelected) {
-      setTempSelected((prev) => prev.filter((g) => !items.includes(g)));
+      setTempSelected((prev) => prev.filter((d) => !items.includes(d)));
     } else {
       setTempSelected((prev) => [...new Set([...prev, ...items])]);
     }
@@ -44,7 +44,7 @@ export default function GenreModal({
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-end sm:items-center justify-center">
       <div className="bg-white w-full sm:max-w-md rounded-t-2xl sm:rounded-xl p-6 shadow-lg max-h-[90vh] overflow-y-auto">
-        <h2 className="text-lg font-semibold mb-4">ジャンルを選択</h2>
+        <h2 className="text-lg font-semibold mb-4">こだわり条件</h2>
 
         <div className="space-y-4">
           {options.map((category) => (
@@ -59,7 +59,6 @@ export default function GenreModal({
                   一括選択
                 </button>
               </div>
-              
               <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                 {category.items.map((item) => (
                   <label key={item} className="flex items-center gap-2 text-sm">
@@ -87,7 +86,7 @@ export default function GenreModal({
           <button
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm"
             onClick={() => {
-              setSelectedGenre(tempSelected);
+              setSelectedDetail(tempSelected);
               onSave(tempSelected);
               onClose();
             }}

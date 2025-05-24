@@ -9,7 +9,7 @@ type Props = {
     results: Spot[];
 };
 
-export default function SerachResluts({ results }: Props) {
+export default function SearchResluts({ results }: Props) {
     const searchParams = useSearchParams(); 
     if (!searchParams) return;
     return (

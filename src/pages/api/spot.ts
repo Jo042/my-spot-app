@@ -7,6 +7,7 @@ export type Spot = {
     area: string;
     genre: string[];
     type: 'indoor' | 'outdoor';
+    detail: string[];
     image_url: string;
     description: string;
     address: string;
@@ -17,7 +18,7 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Spot[] | { error: string }>
 ){
-    const { area , genre, type} = req.query;
+    const { area , genre, type, detail} = req.query;
 
     let query = supabase.from("spots").select("*");
 
@@ -30,6 +31,8 @@ export default async function handler(
      }
     }
 
+
+
     if (type && typeof type === "string") {
         query = query.eq("type", type);
     }
@@ -40,6 +43,15 @@ export default async function handler(
         } else if (typeof genre === "string") {
           query = query.contains("genre", [genre]);
         }
+    }
+
+    if(detail){
+        if (Array.isArray(detail)) {
+        query = query.in("detail", detail); 
+     } 
+     else {
+        query = query.eq("detail", detail); 
+     }
     }
 
     const { data, error } = await query;
