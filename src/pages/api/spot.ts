@@ -32,27 +32,20 @@ export default async function handler(
     }
 
 
-
     if (type && typeof type === "string") {
         query = query.eq("type", type);
     }
 
     if (genre) {
-        if (Array.isArray(genre)) {
-          query = query.overlaps("genre", genre);
-        } else if (typeof genre === "string") {
-          query = query.contains("genre", [genre]);
-        }
-    }
+        const genreArray = Array.isArray(genre) ? genre : [genre];
+        query = query.overlaps("genre", genreArray); // ✅ 常に overlaps
+    }    
 
-    if(detail){
-        if (Array.isArray(detail)) {
-        query = query.in("detail", detail); 
-     } 
-     else {
-        query = query.eq("detail", detail); 
-     }
-    }
+if (detail) {
+  const detailArray = Array.isArray(detail) ? detail : [detail];
+  query = query.overlaps("detail", detailArray); // ✅ 常に overlaps
+}
+
 
     const { data, error } = await query;
 
