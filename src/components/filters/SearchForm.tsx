@@ -32,15 +32,12 @@ export default function SearchForm() {
   const [showAreaModal, setShowAreaModal] = useState(false);
   const [showGenreModal, setShowGenreModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
-  //const [showTypeModal, setShowTypeModal] = useState(false);
-  
+ 
   const [selectedGenres, setSelectedGenres] = useState<string[]>(genre);
   const [selectedArea, setSelectedArea] = useState<string[]>([]);
   const [selectedDetail, setSelectedDetail] = useState<string[]>([]);
 
-  //const [selectedType, setSelectedType] = useState(false);
-
-  //const genreOptions = ['カフェ', '公園', '美術館', '水族館', '夜景'];
+  const [isLoading, setIsLoding] = useState(false);
   
 
   //const detailOptions = ['こだわり'];
@@ -82,12 +79,15 @@ export default function SearchForm() {
     placeType.forEach((t) => params.append('type' , t));
     genre.forEach((g) => params.append('genre', g));
     detail.forEach((d) => params.append('detail', d));
+
     router.push(`?${params.toString()}`);
 
+    setIsLoding(true);
     const res = await fetch(`/api/spot?${params.toString()}`);
     const data: Spot[] = await res.json();
     setResults(data);
     setHasSearched(true);
+    setIsLoding(false);
   };
 
   const toggleGenre = (g: string) => {
@@ -164,7 +164,10 @@ export default function SearchForm() {
               ? `${results.length}件見つかりました`
               : '該当するスポットはありません'}
           </p>
-          <SearchResults results={results} />
+          <SearchResults 
+            results={results} 
+            isLoading={isLoading}
+          />
         </>
       )}
     </form>
