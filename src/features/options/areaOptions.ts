@@ -1,4 +1,4 @@
-export const areaCategories = [
+export const areaOptions = [
   {
     label: '東京23区',
     items: ['新宿', '渋谷', '池袋', '上野', '六本木', '秋葉原', '銀座', '原宿'],

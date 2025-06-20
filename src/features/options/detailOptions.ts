@@ -1,4 +1,4 @@
-export const detailCategories = [
+export const detailOptions = [
   {
     label: 'アクセス・立地',
     items: ['駅近', '無料駐車場あり', 'バス停近く'],

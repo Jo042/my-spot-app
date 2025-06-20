@@ -7,7 +7,7 @@ type Props = {
   onOpenModal: () => void;
 };
 
-export default function GenreFilter({
+export default function SelectedGenre({
   genres,
   onOpenModal,
   selectedGenres,

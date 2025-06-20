@@ -2,20 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import AreaSelect from "./AreaSelect";
-import GenreFilter from "./GenreFilter";
-import PlaceType from "./PlaceType";
-import SearchButton from "../ui/button/SearchButton";
-import SearchResults from "../results/SearchResults";
-import type { Spot } from '../../pages/api/spot';
-import DetailButton from "../ui/button/DetailButton";
-import ResetButton from "../ui/button/ResetButton";
-import GenreModal from "../modal/GenreModal";
-import AreaModal from "../modal/AreaModal";
-import DetailModal from "../modal/DetailModal";
-import { areaCategories } from "@/src/data/areaOptions";
-import { genreCategories } from "@/src/data/genreOptions";
-import { detailCategories } from "@/src/data/detailOptions";
+import type { Spot } from '../pages/api/spot';
+import SearchResults from "./results/SearchResults";
+import * as Selected from "@/src/features/filters/"
+import * as Button from "@/src/features/ui/button"
+import * as Modal from "@/src/features/modal/index"
+import * as Options from "@/src/features/options"
 
 export default function SearchForm() {
   const searchParams = useSearchParams();
@@ -115,7 +107,7 @@ export default function SearchForm() {
     >
       <h1 className="text-2xl font-bold">スポット検索</h1>
       <div className="bg-white rounded-xl shadow p-4 space-y-4">
-        <AreaSelect
+        <Selected.SelectedArea
           selectedAreas={selectedArea} 
           area={area} 
           onChange={setArea}
@@ -123,8 +115,8 @@ export default function SearchForm() {
             setSelectedArea(area);
             setShowAreaModal(true)}}
         />
-        <GenreFilter 
-          genres={genreCategories} 
+        <Selected.SelectedGenre 
+          genres={Options.areaOptions} 
           selectedGenres={genre} 
           onToggle={toggleGenre} 
           onOpenModal={() => {
@@ -132,18 +124,18 @@ export default function SearchForm() {
             setSelectedGenres(genre);
           }}
         />
-        <PlaceType 
+        <Selected.SelectedPlaceType 
           placeType={placeType} 
           onChange={setPlaceType}
         />
         <div className="flex py-3 justify-between items-center gap-2">
-          <DetailButton 
+          <Button.DetailButton 
             detail = {detail}
             selectedDetail={selectedDetail}
             onOpenModal={() => setShowDetailModal(true)}
             //onToggle={}
           />
-          <ResetButton 
+          <Button.ResetButton 
             setArea = {() => setArea([])}
             setGenre={() => setGenre([])}
             setPlaceType ={() =>setPlaceType([])}
@@ -153,7 +145,7 @@ export default function SearchForm() {
             setSelectedArea={() => setSelectedArea([])}
           />
         </div>
-        <SearchButton 
+        <Button.SearchButton 
           onClick={handleSearch} 
         />
       </div>
@@ -172,32 +164,32 @@ export default function SearchForm() {
       )}
     </form>
     {showAreaModal && (
-      <AreaModal
+      <Modal.AreaModal
         initial={area}
         selectedArea={selectedArea}
         setSelectedArea={setSelectedArea}
-        options={areaCategories}
+        options={Options.areaOptions}
         onClose={() => setShowAreaModal(false)}
         onSave={(newSelected) => setArea(newSelected)}
       />
     )}
     {showGenreModal && (
-      <GenreModal
+      <Modal.GenreModal
         initial={genre}
         selectedGenre={selectedGenres}
         setSelectedGenre={setSelectedGenres}
-        options={genreCategories}
+        options={Options.genreOptions}
         onClose={() => setShowGenreModal(false)}
         onSave={(newSelected) => setGenre(newSelected)}
     />
     )}
 
     {showDetailModal && (
-      <DetailModal
+      <Modal.DetailModal
         initial={detail}
         selectedDetail={selectedDetail}
         setSelectedDetail={setSelectedDetail}
-        options={detailCategories}
+        options={Options.detailOptions}
         onClose={() => setShowDetailModal(false)}
         onSave={(newSelected) => setDetail(newSelected)}
       />

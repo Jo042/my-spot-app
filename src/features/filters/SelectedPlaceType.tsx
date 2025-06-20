@@ -7,7 +7,7 @@ type Props = {
   onChange: (value: string[]) => void;
 };
 
-export default function PlaceType({ placeType, onChange }: Props) {
+export default function SelectedPlaceType({ placeType, onChange }: Props) {
   const toggleType = (type: string) => {
     if (placeType.includes(type)) {
       onChange(placeType.filter((t) => t !== type)); // 解除

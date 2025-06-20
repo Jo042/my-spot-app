@@ -1,4 +1,4 @@
-export const genreCategories = [
+export const genreOptions = [
   {
     label: '定番スポット',
     items: ['遊園地', 'ボウリング', '公園', '水族館', '動物園', 'テーマパーク'],
