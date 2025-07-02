@@ -1,6 +1,6 @@
 'use client';
 
-import { Spot } from '../../pages/api/spot';
+import { Spot } from '../../app/api/spots/route';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';

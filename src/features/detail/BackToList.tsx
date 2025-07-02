@@ -3,7 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function BackToLink() {
+export default function BackToList() {
     const searchParams = useSearchParams();
     const query = searchParams?.toString() ?? '';
 

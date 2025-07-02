@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import type { Spot } from '../pages/api/spot';
+import type { Spot } from './api/spots/route';
 import SearchResults from "@/src/features/results/SearchResults";
 import * as Selected from "@/src/features/filters/"
 import * as Button from "@/src/features/ui/button"
 import * as Modal from "@/src/features/modal/index"
 import * as Options from "@/src/features/options"
+import HeroSection from "../features/hero/HeroSection";
 
 export default function HomePage() {
   const searchParams = useSearchParams();
@@ -32,7 +33,6 @@ export default function HomePage() {
   const [isLoading, setIsLoding] = useState(false);
   
 
-  //const detailOptions = ['こだわり'];
   // URLのクエリから状態と検索を復元
   useEffect(() => {
     if (!searchParams) return;
@@ -55,12 +55,13 @@ export default function HomePage() {
       genreParams.forEach((g) => params.append('genre', g));
       detailParamas.forEach((d) => params.append('detail', d));
 
-      fetch(`/api/spot?${params.toString()}`)
+      fetch(`api/spots?${params.toString()}`)
         .then((res) => res.json())
         .then((data: Spot[]) => {
           setResults(data);
           setHasSearched(true);
         });
+
     }
   }, [searchParams]);
 
@@ -75,7 +76,7 @@ export default function HomePage() {
     router.push(`?${params.toString()}`);
 
     setIsLoding(true);
-    const res = await fetch(`/api/spot?${params.toString()}`);
+    const res = await fetch(`api/spots?${params.toString()}`);
     const data: Spot[] = await res.json();
     setResults(data);
     setHasSearched(true);
@@ -90,14 +91,7 @@ export default function HomePage() {
 
   return (
     <>
-    <div className="bg-gradient-to-r from-blue-50 to-blue-100 py-8 px-4 text-center rounded-md shadow mb-6">
-      <h1 className="text-2xl font-bold text-gray-800">お出かけスポットを探そう</h1>
-      <p className="text-gray-600 mt-2">エリア・ジャンル・タイプから今すぐ見つかる</p>
-      <a href="#search" className="mt-4 inline-block px-6 py-2 bg-blue-600 text-white rounded-full text-sm shadow hover:bg-blue-700">
-      条件を選んで検索する
-      </a>
-    </div>
-
+    <HeroSection></HeroSection>
     <form
       onSubmit={(e) => {
         e.preventDefault();

@@ -11,7 +11,7 @@ type Props = {
   initial: string[];
   selectedArea: string[];
   setSelectedArea: React.Dispatch<React.SetStateAction<string[]>>;
-  options: AreaCategory[]; // ⬅️ カテゴリ形式に変更
+  options: AreaCategory[];
   onClose: () => void;
   onSave: (selected: string[]) => void;
 };

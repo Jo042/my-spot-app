@@ -1,4 +1,4 @@
-import { SupabaseAdapter } from '@/src/lib/adapter/supabase';
+import { SupabaseAdapter } from '@/src/lib/auth/supabaseAdapter';
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";

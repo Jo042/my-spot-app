@@ -1,8 +1,7 @@
 export const dynamic = "force-dynamic";
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import { supabase } from "@/src/lib/supabase";
-import BackToLink from "@/src/features/detail/BackToLink";
+import { supabase } from "@/src/lib/supabase/supabase";
+import BackToLink from "@/src/features/detail/BackToList";
 
 type Props = {
     params: {id: string};
