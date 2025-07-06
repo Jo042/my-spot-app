@@ -42,8 +42,8 @@ export default function DetailModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-end sm:items-center justify-center">
-      <div className="bg-white w-full sm:max-w-md rounded-t-2xl sm:rounded-xl p-6 shadow-lg max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/20 bg-opacity-40 z-50 flex items-end sm:items-center justify-center">
+      <div className="bg-white w-full sm:max-w-2xl rounded-t-2xl sm:rounded-xl p-7 shadow-lg max-h-[90vh] overflow-y-auto">
         <h2 className="text-lg font-semibold mb-4">こだわり条件</h2>
 
         <div className="space-y-4">

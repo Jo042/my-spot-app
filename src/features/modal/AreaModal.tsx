@@ -42,8 +42,8 @@ export default function AreaModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-end sm:items-center justify-center">
-      <div className="bg-white w-full sm:max-w-md rounded-t-2xl sm:rounded-xl p-6 shadow-lg max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/20 bg-opacity-40 z-50 flex items-end sm:items-center justify-center">
+      <div className="bg-white w-full sm:max-w-2xl rounded-t-2xl sm:rounded-xl p-7 shadow-lg max-h-[90vh] overflow-y-auto">
         <h2 className="text-lg font-semibold mb-4">エリアを選択</h2>
 
         <div className="space-y-4">
@@ -59,7 +59,7 @@ export default function AreaModal({
                   一括選択
                 </button>
               </div>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+              <div className="grid grid-cols-3 gap-x-4 gap-y-2">
                 {category.items.map((area) => (
                   <label key={area} className="flex items-center gap-2 text-sm">
                     <input
