@@ -2,7 +2,7 @@ import { SupabaseAdapter } from '@/src/lib/auth/supabaseAdapter';
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
-
+//import { SupabaseAdapter } from '@next-auth/supabase-adapter';
 import type { NextAuthOptions } from "next-auth";
 
 export const authOptions: NextAuthOptions = {
@@ -26,7 +26,7 @@ export const authOptions: NextAuthOptions = {
   adapter: SupabaseAdapter({
     url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
     secret: process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    schema: "public",
+    schema: "next-auth",
   }),
   secret: process.env.NEXTAUTH_SECRET!,
   pages: {
@@ -34,6 +34,7 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async session({ session }) {
+      console.log(session);
       return session;
     },
     async jwt({ token }) {

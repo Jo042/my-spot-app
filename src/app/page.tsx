@@ -97,7 +97,7 @@ export default function HomePage() {
         e.preventDefault();
         handleSearch();
       }}
-      className="bg-white p-4 rounded shadow-md space-y-4 max-w-xl mx-auto mt-6"
+      className="bg-gray-50 p-4 rounded shadow-md space-y-4 max-w-xl mx-auto mt-6"
     >
       <h1 className="text-2xl font-bold">スポット検索</h1>
       <div className="bg-white rounded-xl shadow p-4 space-y-4">
