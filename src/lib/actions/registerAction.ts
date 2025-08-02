@@ -12,6 +12,7 @@ export const registerUser = async ({
     password: string;
     passwordConfirm: string;
 }) => {
+
     const newUserSchema = z.object({
         email: z.string().email()
     }).and(passwordMatchSchema)
