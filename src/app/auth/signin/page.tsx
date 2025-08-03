@@ -74,7 +74,7 @@ export default function SignIn() {
           <CardContent>
           <Form {...form}>
               <form onSubmit={form.handleSubmit(handleSubmit)} >
-                <fieldset disable={form.formState.isSubmitting} className="flex flex-col gap-2">
+                <fieldset disabled={form.formState.isSubmitting} className="flex flex-col gap-2">
                   <FormField control={form.control} name="email" render={({field}) => (
                     <FormItem>
                       <FormLabel>
