@@ -9,6 +9,7 @@ import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 import { passwordMatchSchema } from "@/src/lib/validation/passwordMatchSchema";
 import { registerUser } from "@/src/lib/actions/registerAction";
+import Link from "next/link";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -25,6 +26,12 @@ export default function SignIn() {
       passwordConfirm: data.passwordConfirm
     });
 
+    if(response?.error){
+      form.setError("email", {
+        message: response.message,
+      })
+    }
+
     console.log(response);
   }
 
@@ -39,59 +46,78 @@ export default function SignIn() {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <Card className="w-[350px]">
-        <CardHeader>
-          <CardTitle>
-            会員登録フォーム
-          </CardTitle>
-          <CardDescription>
-            会員登録はこちら
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-2">
-              <FormField control={form.control} name="email" render={({field}) => (
-                <FormItem>
-                  <FormLabel>
-                    Email
-                  </FormLabel>
-                  <FormControl>
-                    <Input {...field} type="email"/>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-              />
-              <FormField control={form.control} name="password" render={({field}) => (
-                <FormItem>
-                  <FormLabel>
-                    パスワード
-                  </FormLabel>
-                  <FormControl>
-                    <Input {...field} type="password"/>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-              />
-              <FormField control={form.control} name="passwordConfirm" render={({field}) => (
-                <FormItem>
-                  <FormLabel>
-                    パスワード確認
-                  </FormLabel>
-                  <FormControl>
-                    <Input {...field} type="passwordConfirm"/>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-              />
-              <Button type="submit">登録</Button>
-            </form>
-        </Form>
-        </CardContent>
-      </Card>
+      {form.formState.isSubmitSuccessful ?
+        <Card className="w-[350px]">
+          <CardHeader>
+            <CardTitle>
+              アカウントは正常に作成されました
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Button asChild className="w-full">
+              <Link href="/signin">
+                ログイン
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
+        :
+        <Card className="w-[350px]">
+          <CardHeader>
+            <CardTitle>
+              会員登録フォーム
+            </CardTitle>
+            <CardDescription>
+              会員登録はこちら
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+          <Form {...form}>
+              <form onSubmit={form.handleSubmit(handleSubmit)} >
+                <fieldset disable={form.formState.isSubmitting} className="flex flex-col gap-2">
+                  <FormField control={form.control} name="email" render={({field}) => (
+                    <FormItem>
+                      <FormLabel>
+                        Email
+                      </FormLabel>
+                      <FormControl>
+                        <Input {...field} type="email"/>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                  />
+                  <FormField control={form.control} name="password" render={({field}) => (
+                    <FormItem>
+                      <FormLabel>
+                        パスワード
+                      </FormLabel>
+                      <FormControl>
+                        <Input {...field} type="password"/>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                  />
+                  <FormField control={form.control} name="passwordConfirm" render={({field}) => (
+                    <FormItem>
+                      <FormLabel>
+                        パスワード確認
+                      </FormLabel>
+                      <FormControl>
+                        <Input {...field} type="passwordConfirm"/>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                  />
+                  <Button type="submit">登録</Button>
+                </fieldset>
+              </form>
+          </Form>
+          </CardContent>
+        </Card>
+      }
     </div>
   )
 }

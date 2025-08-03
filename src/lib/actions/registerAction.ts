@@ -2,6 +2,9 @@
 
 import z, { string } from "zod"
 import { passwordMatchSchema } from "../validation/passwordMatchSchema";
+import {hash} from "bcryptjs";
+import db from "@/src/db/drizzle";
+import { users } from "@/src/db/usersSchema";
 
 export const registerUser = async ({
     email,
@@ -13,21 +16,43 @@ export const registerUser = async ({
     passwordConfirm: string;
 }) => {
 
-    const newUserSchema = z.object({
-        email: z.string().email()
-    }).and(passwordMatchSchema)
+    try{
 
-    const newUserValidation = newUserSchema.safeParse({
-        email,
-        password,
-        passwordConfirm
-    })
+        const newUserSchema = z.object({
+            email: z.string().email()
+        }).and(passwordMatchSchema)
 
-    if(!newUserValidation.success){
+        const newUserValidation = newUserSchema.safeParse({
+            email,
+            password,
+            passwordConfirm
+        })
+
+        if(!newUserValidation.success){
+            return {
+                error: true,
+                message: newUserValidation.error.issues[0]?.message ?? "エラーが発生しました"
+                
+            }
+        }
+
+        const hashedPassword = await hash(password, 10);
+
+        await db.insert(users).values({
+            email,
+            password: hashedPassword,
+        })
+    }catch(e: any){
+        if(e.code === "23505"){
+            return{
+                error: true,
+                message: "そのメールアドレスはすでに使われています"
+            }
+        }
+
         return {
             error: true,
-            message: newUserValidation.error.issues[0]?.message ?? "エラーが発生しました"
-            
+            message: "エラーが発生しました"
         }
     }
 };
