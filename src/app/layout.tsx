@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import Header from "./components/layout/header/Header";
 import { AuthProvider } from '@/src/features/AuthProvier'
 import { Metadata } from "next";
+import { auth } from "@/auth";
 
 export const metadata: Metadata = {
   title: 'ぷらスポ',
@@ -9,11 +10,12 @@ export const metadata: Metadata = {
     icon: '/favicon.ico',
   },
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
   return (
     <html lang="ja">
       <body>
