@@ -15,15 +15,17 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
+  //const session = await auth();
   return (
     <html lang="ja">
+      <AuthProvider>
       <body>
-        <AuthProvider>
+        
           <Header></Header>
-        </AuthProvider>
+        
         {children}
       </body>
+      </AuthProvider>
     </html>
   );
 }

@@ -1,6 +1,11 @@
-import { handlers } from "@/auth" // Referring to the auth.ts we just created
-export const { GET, POST } = handlers;
+//import { handlers } from "@/auth" // Referring to the auth.ts we just created
+// export const { GET, POST } = handlers;
+//下記に変更したらうまくいった😭
 
+import NextAuth from "next-auth/next";
+import { authOptions } from "@/auth";
+export const GET = NextAuth(authOptions);
+export const POST = NextAuth(authOptions);
 
 
 
