@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../components/ui/card";
 import { Form, FormControl, FormField, FormLabel, FormMessage, FormItem } from "../../components/ui/form";
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginWithCredentials } from "@/src/lib/actions/loginAction"; // 修正したサーバーアクションをインポート
 import { useSession, signIn } from "next-auth/react"; // クライアントサイドのsignInをインポート
 import { useRouter } from "next/navigation"; // useRouterをインポート
+import Link from "next/link";
 
 const formSchema = z.object({
     email: z.string().email(),
@@ -57,7 +58,7 @@ export default function Login() {
                 // NextAuthのsignInが成功した場合
                 console.log("NextAuth認証フロー成功！セッションを更新してリダイレクトします。");
                 await update(); // useSessionのセッション情報を強制的に更新
-                router.push('/'); // トップページにリダイレクト
+                router.push('/my-account'); // トップページにリダイレクト
             }
         } else {
             // 認証情報が無効な場合（サーバーアクションからのエラー）
@@ -108,10 +109,10 @@ export default function Login() {
                             )}
                             />
                             {/* フォーム全体のエラーメッセージ表示 */}
-                            {form.formState.errors.root && (
-                                <p className="text-red-500 text-sm text-center mt-2">
+                            {!!form.formState.errors.root?.message && (
+                                <FormMessage>
                                     {form.formState.errors.root.message}
-                                </p>
+                                </FormMessage>
                             )}
                             <Button type="submit" disabled={form.formState.isSubmitting}>
                                 {form.formState.isSubmitting ? "ログイン中..." : "ログイン"}
@@ -120,6 +121,14 @@ export default function Login() {
                         </form>
                     </Form>
                 </CardContent>
+                <CardFooter className="flex-col gap-2">
+                    <div className="text-muted-foreground text-sm">
+                        まだアカウントを持っていませんか？{" "} <Link href = "/auth/register" className="underline">会員登録</Link>
+                    </div>
+                    <div className="text-muted-foreground text-sm">
+                        パスワードをお忘れですか？{" "} <Link href = "/password-reset" className="underline">パスワードをリセットする</Link>
+                    </div>
+                </CardFooter>
             </Card>
         </div>
     )

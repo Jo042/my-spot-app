@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "../../components/ui/card";
 import {z} from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -116,6 +116,11 @@ export default function SignIn() {
               </form>
           </Form>
           </CardContent>
+          <CardFooter>
+                    <div className="text-muted-foreground text-sm">
+                        すでにアカウントをお持ちの方はこちら <Link href = "/auth/login" className="underline">ログインする</Link>
+                    </div>
+          </CardFooter>
         </Card>
       }
     </div>
