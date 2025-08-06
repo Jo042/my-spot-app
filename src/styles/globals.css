@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
+
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -120,3 +123,50 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+/* メインピンク：やさしくて印象的 */
+@theme {
+  --color-primary: #FF7597;         
+  --color-primary_hovered: #E65075; 
+  --color-primary_light: #FFE4EC;  
+  --color-accent: #6A7BA2;        
+  --color-background: #FFF9FB;      
+  --color-background_deep: #FFF2F5;
+  --color-surface: #FFFFFF;    
+  --color-muted: #9CA3AF;      
+  --color-border: #E5E7EB;      
+}
+
+
+/* サンセットオレンジ */
+@theme {
+  --color-primary: #FF9472;       
+  --color-primary_hovered: #E67C5B;
+  --color-primary_light: #FFE2D6;
+  --color-accent: #FFC978;    
+  --color-background: #FFFAF5;
+  --color-background_deep: #FFF2EB;
+  --color-surface: #FFFFFF;
+}
+
+
+
+/* 明るいブルー（blue-500） */
+/* @theme {
+  --color-primary: #3B82F6;     
+  --color-primary-hovered: #2563EB; 
+  --color-primary-light: #DBEAFE;  
+  --color-accent: #C4B5FD;         
+  --color-background: #F0F9FF;     
+  --color-background_deep: #EAF4FD;
+  --color-surface: #E0F2FE;
+  --color-muted: #64748B;           
+  --color-border: #E2E8F0;         
+} */
+
+
+
+
+
+

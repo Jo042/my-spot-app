@@ -85,7 +85,7 @@ export default function GenreModal({
             キャンセル
           </button>
           <button
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm"
+            className="bg-primary text-white px-4 py-2 rounded hover:bg-primary_hovered text-sm"
             onClick={() => {
               setSelectedGenre(tempSelected);
               onSave(tempSelected);

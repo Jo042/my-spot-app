@@ -48,7 +48,7 @@ export default function Header() {
           <Link href="/auth/login" passHref>
           <button
             //onClick={() => signIn()} // ログインボタンのクリックハンドラ
-            className="text-sm px-4 py-1 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-200"
+            className="text-sm px-4 py-1 bg-primary text-white rounded-full hover:bg-primary_hovered transition-colors duration-200"
           >
             ログイン
           </button>

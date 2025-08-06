@@ -43,7 +43,7 @@ export default function SearchResults({ results, isLoading }: Props) {
             </div>
             <Link
               href={`/spot/${spot.id}?${searchParams.toString()}`}
-              className="inline-block mt-2 px-4 py-1.5 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
+              className="inline-block mt-2 px-4 py-1.5 bg-primary text-white text-sm rounded hover:bg-primary_hovered"
             >
               詳細を見る
             </Link>

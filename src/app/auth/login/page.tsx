@@ -58,7 +58,7 @@ export default function Login() {
                 // NextAuthのsignInが成功した場合
                 console.log("NextAuth認証フロー成功！セッションを更新してリダイレクトします。");
                 await update(); // useSessionのセッション情報を強制的に更新
-                router.push('/my-account'); // トップページにリダイレクト
+                router.push('/'); // トップページにリダイレクト
             }
         } else {
             // 認証情報が無効な場合（サーバーアクションからのエラー）

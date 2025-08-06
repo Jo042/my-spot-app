@@ -42,7 +42,7 @@ export default async function SpotDetailPage({ params }: Props) {
         )}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-blue-600 underline"
+        className="text-primary underline"
       >
         地図で見る
       </a>
