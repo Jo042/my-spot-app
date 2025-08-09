@@ -29,7 +29,7 @@ export default function SearchResults({ results, isLoading }: Props) {
           className="bg-white border rounded-xl shadow-md overflow-hidden hover:shadow-lg transition"
         >
           <Image
-            src={spot.image_url}
+            src={spot.imageUrl}
             alt={spot.name}
             width={500}
             height={300}
