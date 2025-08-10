@@ -111,8 +111,8 @@ export const loginWithCredentials = async ({
         // ここではまだログイン処理は完了していません（セッションは確立されていない）
         return { success: true, message: "認証情報が有効です。" };
 
-    }catch(error: any){
-        console.error("認証情報検証中にエラーが発生しました:", error);
+    }catch(e){
+        console.error("認証情報検証中にエラーが発生しました:", e);
         return { success: false, message: "認証情報検証中に予期せぬエラーが発生しました。もう一度お試しください。" };
     }
 };

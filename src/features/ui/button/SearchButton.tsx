@@ -5,7 +5,7 @@ type Props = {
     onClick: () => void;
 };
 
-export default function SearchButton({ label = 'この条件で探す', onClick }: Props){
+export default function SearchButton({ label = 'この条件で探す' }: Props){
     return(
         <button
         type="submit"

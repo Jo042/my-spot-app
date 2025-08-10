@@ -42,7 +42,7 @@ export const registerUser = async ({
             email,
             password: hashedPassword,
         })
-    }catch(e: any){
+    }catch(e){
         if(e.code === "23505"){
             return{
                 error: true,

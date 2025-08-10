@@ -3,7 +3,6 @@
 
 
 export default function SelectedArea({
-  area, 
   selectedAreas,
   onOpenModal,
 }: {

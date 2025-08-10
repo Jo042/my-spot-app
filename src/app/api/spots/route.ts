@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
       .where(preds.length ? and(...preds) : undefined);
 
     return NextResponse.json(rows, { status: 200 });
-  } catch (e: any) {
+  } catch (e) {
     return NextResponse.json({ error: e?.message ?? "Internal Error" }, { status: 500 });
   }
 }
