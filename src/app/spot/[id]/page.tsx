@@ -6,15 +6,16 @@ import  db  from "@/src/db/drizzle"; // Drizzle DBインスタンスをインポ
 import { spots } from "@/src/db/spotSchema"; // spotsスキーマをインポート
 import { eq } from "drizzle-orm"; // `eq` をインポート
 
-type Props = {
-  params: { id: string };
+type Params = {
+   id: string 
 };
 
-export default async function SpotDetailPage({ params }: Props) {
+export default async function SpotDetailPage({ params }: {params: Promise<Params>;}) {
   // Drizzle ORMで特定のスポットをIDで取得するクエリ
   // .where(eq(spots.id, params.id)) で WHERE id = '...' を表現
   // .execute() は Drizzle のクエリを実行
-  const [spot] = await db.select().from(spots).where(eq(spots.id, params.id));
+  const { id } = await params;
+  const [spot] = await db.select().from(spots).where(eq(spots.id, id));
 
   if (!spot) return notFound();
 
