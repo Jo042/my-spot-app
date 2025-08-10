@@ -55,8 +55,14 @@ export async function GET(req: NextRequest) {
       .where(preds.length ? and(...preds) : undefined);
 
     return NextResponse.json(rows, { status: 200 });
-  } catch (e) {
-    return NextResponse.json({ error: e?.message ?? "Internal Error" }, { status: 500 });
+  } catch (e: unknown) {
+    let message = "Internal Error";
+    if (e instanceof Error) {
+      message = e.message;
+    } else if (typeof e === "string") {
+      message = e;
+    }
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
