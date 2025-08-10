@@ -37,8 +37,8 @@ function toArray(value: string): string[] {
     try {
       const arr = JSON.parse(s);
       if (Array.isArray(arr)) return arr.map(String);
-    } catch (err) {
-      console.warn("JSON.parseに失敗:", value);
+    } catch (e) {
+      console.warn("JSON.parseに失敗:", e);
     }
   }
   return s.split(",").map((v) => v.trim()).filter(Boolean);

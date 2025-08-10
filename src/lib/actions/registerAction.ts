@@ -42,9 +42,10 @@ export const registerUser = async ({
             email,
             password: hashedPassword,
         })
-    }catch(e){
-        if(e.code === "23505"){
-            return{
+    } catch (e: unknown) {
+        // Postgres の一意制約違反（UNIQUE violation）は SQLSTATE 23505
+        if (e && typeof e === "object" && "code" in e && (e as { code?: string }).code === "23505") {
+            return {
                 error: true,
                 message: "そのメールアドレスはすでに使われています"
             }
