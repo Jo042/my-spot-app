@@ -30,7 +30,7 @@ function toArray(value: string): string[] {
       const arr = JSON.parse(trimmed);
       if (Array.isArray(arr)) return arr.map(String);
     } catch (e) {
-      console.warn("JSON.parseに失敗しました。値:", value);
+      console.warn("JSON.parseに失敗しました。値:", e);
     }
   }
   return trimmed.split(",").map(s => s.trim()).filter(Boolean);

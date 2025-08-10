@@ -2,7 +2,6 @@ import "../styles/globals.css";
 import Header from "./components/layout/header/Header";
 import { AuthProvider } from '@/src/features/AuthProvier'
 import { Metadata } from "next";
-import { auth } from "@/auth";
 
 
 export const metadata: Metadata = {

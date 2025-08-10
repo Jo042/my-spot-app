@@ -9,7 +9,7 @@ type Props ={
     setSelectedGenres: () => void;
     setSelectedArea: () => void;
 }
-export default function ({setArea,setSelectedArea, setSelectedGenres, setGenre, setPlaceType, setResults, setHasSearched} : Props){
+const ResetButton = function ({setArea,setSelectedArea, setSelectedGenres, setGenre, setPlaceType, setResults, setHasSearched} : Props){
     const router = useRouter();
     return(
         <button
@@ -30,3 +30,5 @@ export default function ({setArea,setSelectedArea, setSelectedGenres, setGenre, 
               </button>
     )
 }
+
+export default ResetButton;

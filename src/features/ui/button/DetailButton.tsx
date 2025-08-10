@@ -8,10 +8,8 @@ type Props = {
 };
 
 export default function DetailButton (
-  { detail, 
-    onOpenModal, 
-    selectedDetail, 
-    //onToggle 
+  { 
+    onOpenModal,
   }: Props
 ) {
    return(

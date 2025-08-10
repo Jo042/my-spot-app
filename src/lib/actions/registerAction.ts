@@ -1,6 +1,6 @@
 "use server"
 
-import z, { string } from "zod"
+import z from "zod"
 import { passwordMatchSchema } from "../validation/passwordMatchSchema";
 import {hash} from "bcryptjs";
 import db from "@/src/db/drizzle";

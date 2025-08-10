@@ -1,8 +1,7 @@
 import {
     pgTable,
     uuid,
-    text,
-    timestamp,
+    text
   } from "drizzle-orm/pg-core";
   
   export const spots = pgTable("spots", {

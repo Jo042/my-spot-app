@@ -1,7 +1,5 @@
 'use client';
 
-type PlaceType = 'indoor' | 'outdoor';
-
 type Props = {
   placeType: string[]; // 複数選択対応
   onChange: (value: string[]) => void;

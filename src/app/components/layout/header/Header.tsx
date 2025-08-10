@@ -1,7 +1,7 @@
 // src/components/layout/Header.tsx
 'use client' // このコンポーネントはクライアントサイドで動作します
 
-import { useSession, signIn, signOut } from 'next-auth/react' // NextAuthのクライアントサイドフックをインポート
+import { useSession} from 'next-auth/react' // NextAuthのクライアントサイドフックをインポート
 import Link from 'next/link'; // Next.jsのLinkコンポーネントをインポート
 import Image from 'next/image'; // Next.jsのImageコンポーネントをインポート
 import LogoutButton from '@/src/features/header/LogoutButton';

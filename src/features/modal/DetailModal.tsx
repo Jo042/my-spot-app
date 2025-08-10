@@ -17,7 +17,6 @@ type Props = {
 };
 
 export default function DetailModal({
-  initial,
   selectedDetail,
   setSelectedDetail,
   options,

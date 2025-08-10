@@ -17,7 +17,6 @@ type Props = {
 };
 
 export default function AreaModal({
-  initial,
   selectedArea,
   setSelectedArea,
   options,

@@ -8,10 +8,8 @@ type Props = {
 };
 
 export default function SelectedGenre({
-  genres,
   onOpenModal,
-  selectedGenres,
-  onToggle,
+  selectedGenres
 }: Props) {
   // 3件まで表示、それ以上は「他◯件」
   const displayGenres =
