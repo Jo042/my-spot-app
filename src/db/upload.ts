@@ -83,9 +83,9 @@ async function importCsvData() {
     
     console.log("挿入・更新完了 ✅");
     process.exit(0);
-  } catch (error: any) {
-    console.error("挿入時エラー ❌", error?.message || error);
-    if (error?.cause) console.error("cause:", error.cause);
+  } catch (e) {
+    console.error("挿入時エラー ❌", e?.message || e);
+    if (e?.cause) console.error("cause:", e.cause);
     process.exit(1);
   }
 }
