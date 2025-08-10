@@ -5,8 +5,8 @@ import { compare } from "bcryptjs";
 import { eq } from "drizzle-orm";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import db from "./src/db/drizzle"; // dbのパスがプロジェクト構造に合っているか確認してください
-import { users } from "./src/db/usersSchema"; // usersSchemaのパスがプロジェクト構造に合っているか確認してください
+import db from "./src/lib/db/drizzle"; // dbのパスがプロジェクト構造に合っているか確認してください
+import { users } from "./src/lib/db/usersSchema"; // usersSchemaのパスがプロジェクト構造に合っているか確認してください
 
 // authOptionsオブジェクトを定義し、エクスポートします。
 // これをroute.tsでインポートして使用します。

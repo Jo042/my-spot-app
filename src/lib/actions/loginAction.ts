@@ -62,8 +62,8 @@ import z from "zod";
 import { passwordSchema } from "../validation/passwordShcema"; // パスが正しいか確認してください
 import { compare } from "bcryptjs"; // パスワード比較のためにインポート
 import { eq } from "drizzle-orm"; // Drizzle ORMのためにインポート
-import db from "@/src/db/drizzle"; // データベースインスタンスのパスが正しいか確認してください
-import { users } from "@/src/db/usersSchema"; // ユーザーDrizzleスキーマのパスが正しいか確認してください
+import db from "@/src/lib/db/drizzle"; // データベースインスタンスのパスが正しいか確認してください
+import { users } from "@/src/lib/db/usersSchema"; // ユーザーDrizzleスキーマのパスが正しいか確認してください
 
 
 export const loginWithCredentials = async ({

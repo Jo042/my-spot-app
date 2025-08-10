@@ -3,8 +3,8 @@
 import z from "zod"
 import { passwordMatchSchema } from "../validation/passwordMatchSchema";
 import {hash} from "bcryptjs";
-import db from "@/src/db/drizzle";
-import { users } from "@/src/db/usersSchema";
+import db from "@/src/lib/db/drizzle";
+import { users } from "@/src/lib/db/usersSchema";
 
 export const registerUser = async ({
     email,
