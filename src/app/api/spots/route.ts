@@ -1,7 +1,7 @@
 // app/api/spots/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/src/lib/db/drizzle";
-import { spots } from "@/src/lib/db/spotSchema";
+import { spots } from "@/src/lib/db/schemas/spots";
 import { sql, and, eq } from "drizzle-orm";
 
 // DBのスキーマが camelCase なら、型も合わせるのがおすすめ（imageUrl 等）

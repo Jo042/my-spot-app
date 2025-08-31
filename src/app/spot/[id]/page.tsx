@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic";
 import { notFound } from "next/navigation";
 import BackToLink from "@/src/features/detail/BackToList";
 import  db  from "@/src/lib/db/drizzle"; // Drizzle DBインスタンスをインポート
-import { spots } from "@/src/lib/db/spotSchema"; // spotsスキーマをインポート
+import { spots } from "@/src/lib/db/schemas/spots"; // spotsスキーマをインポート
 import { eq } from "drizzle-orm"; // `eq` をインポート
 
 type Params = {

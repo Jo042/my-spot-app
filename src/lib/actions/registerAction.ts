@@ -4,16 +4,18 @@ import z from "zod"
 import { passwordMatchSchema } from "../validation/passwordMatchSchema";
 import {hash} from "bcryptjs";
 import db from "@/src/lib/db/drizzle";
-import { users } from "@/src/lib/db/usersSchema";
+import { users } from "@/src/lib/db/schemas/usersSchema";
 
 export const registerUser = async ({
     email,
     password,
     passwordConfirm,
+    name,
 }: {
     email: string;
     password: string;
     passwordConfirm: string;
+    name: string;
 }) => {
 
     try{
@@ -40,6 +42,7 @@ export const registerUser = async ({
 
         await db.insert(users).values({
             email,
+            name,
             password: hashedPassword,
         })
     } catch (e: unknown) {

@@ -7,7 +7,7 @@ dotenv.config({
 });
 
 export default defineConfig({
-    schema: "./src/db/schema.ts",
+    schema: "./src/lib/db/schemas/index.ts",
     dialect: "postgresql",
     dbCredentials: {
         url: process.env.NEON_DATABASE_URL!,
